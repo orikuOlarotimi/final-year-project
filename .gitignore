@@ -11,6 +11,7 @@ dataset/
 # Ignores all dependency directories and built files
 build/
 dist/
+uploads/
 *.egg-info/
 __pycache__/
 
@@ -32,4 +33,4 @@ __pycache__/
 # == Logs and Temporary Data ==
 *.log
 
-main.py
+app/main.py
