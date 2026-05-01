@@ -21,7 +21,7 @@ async def send_message(payload: ChatQuerySchema, user_id: str = Depends(get_curr
     if payload.document_id:
         doc = await DocumentModel.get(payload.document_id)
         if not doc or str(doc.chat_id) != str(payload.chat_id):
-            raise HTTPException(status_code=404, detail="Document not found in this chat")
+            raise HTTPException(status_code=404, detail={"success": False, "message": "Document not found in this chat"})
 
     # 🔹 1. Save USER message
     user_msg = Message(
@@ -36,7 +36,8 @@ async def send_message(payload: ChatQuerySchema, user_id: str = Depends(get_curr
     response = await run_agent(
         user_id=user_id,
         chat_id=payload.chat_id,
-        question=payload.message
+        question=payload.message,
+        document_id=payload.document_id
     )
 
     # 🔹 3. Save ASSISTANT message

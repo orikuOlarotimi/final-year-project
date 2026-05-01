@@ -19,6 +19,9 @@ class DocumentModel(Document):
 
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
+    chunk_count: int = 0  # optional but useful
+
+    error_message: Optional[str] = None
 
     class Settings:
         name = "documents"

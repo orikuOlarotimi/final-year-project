@@ -1,11 +1,12 @@
 from langchain_openai import ChatOpenAI
 from app.tools.retrieval_tool import create_retrieval_tool
 from langchain.agents import create_agent
-llm = ChatOpenAI(model="gpt-5-mini", temperature=0)
+llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0)
 
-async def run_agent(user_id: str, chat_id: str, question: str):
 
-    retrieval_tool = create_retrieval_tool(user_id, chat_id)
+async def run_agent(user_id: str, chat_id: str, question: str, document_id: str | None = None):
+
+    retrieval_tool = create_retrieval_tool(user_id, chat_id, document_id)
     prompt = (
             """
             You are Timi, a friendly and helpful document assistant. Your job is to help users
@@ -95,7 +96,6 @@ async def run_agent(user_id: str, chat_id: str, question: str):
         model=llm,
         tools=[retrieval_tool],
         system_prompt=prompt,
-
     )
     final_event = None
 

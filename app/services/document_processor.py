@@ -126,40 +126,27 @@ def _inject_metadata(chunks: List[Document], document) -> List[Document]:
 
 @_with_retry()
 async def _embed_and_upsert(chunks: List[Document], namespace: str) -> None:
-    """
-    Embed in batches (not one-by-one) then upsert to Pinecone.
-    This is the ONLY place vectors are written — no duplication.
-    """
+
     total = len(chunks)
     loop  = asyncio.get_event_loop()
-    logger.info("Embedding %d chunk(s) in batches of %d ...", total, EMBED_BATCH_SIZE)
+
+    logger.info("Upserting %d chunk(s)...", total)
 
     for start in range(0, total, EMBED_BATCH_SIZE):
-        batch  = chunks[start : start + EMBED_BATCH_SIZE]
-        texts  = [c.page_content for c in batch]
-
-        # One round-trip to OpenAI per batch
-        vectors = await loop.run_in_executor(None, _embeddings.embed_documents, texts)
-
-        records = [
-            {
-                "id":     f"{chunk.metadata['document_id']}_{start + i}",
-                "values": vector,
-                "metadata": {**chunk.metadata, "text": chunk.page_content},
-            }
-            for i, (chunk, vector) in enumerate(zip(batch, vectors))
-        ]
+        batch = chunks[start : start + EMBED_BATCH_SIZE]
 
         await loop.run_in_executor(
             None,
-            lambda: vector_store.upsert(records, namespace=namespace)
+            lambda: vector_store.add_documents(
+                batch,                 # ✅ Documents, not dicts
+                namespace=namespace    # ✅ namespace still works
+            )
         )
 
         logger.info(
             "  Upserted %d-%d / %d",
             start + 1, min(start + EMBED_BATCH_SIZE, total), total,
         )
-
 
 # ---------------------------------------------------------------------------
 # Main entry point

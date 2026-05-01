@@ -2,7 +2,7 @@ from langchain.tools import tool
 from app.core.vector_store import vector_store
 
 
-def create_retrieval_tool(user_id: str, chat_id: str):
+def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = None):
     @tool
     def retrieve_documents(query: str) -> str:
         """
@@ -13,7 +13,7 @@ def create_retrieval_tool(user_id: str, chat_id: str):
             query,
             k=5,
             namespace=user_id,  # ✅ captured from outer scope
-            filter={"chat_id": chat_id}  # ✅ captured from outer scope
+            filter={"chat_id": chat_id, "document_id": document_id}  # ✅ captured from outer scope
         )
 
         if not docs:
