@@ -1,7 +1,6 @@
 # app/schemas/auth.py
-
 from pydantic import BaseModel, EmailStr, Field, field_validator
-
+from typing import Optional
 
 class RegisterSchema(BaseModel):
     email: EmailStr
@@ -53,7 +52,6 @@ class RegisterSchema(BaseModel):
 
         return v
 
-
 class LoginSchema(BaseModel):
     email: EmailStr
     password: str
@@ -104,7 +102,6 @@ class VerifyOTPSchema(BaseModel):
             raise ValueError("OTP must be 6 digits")
 
         return v
-
 
 class RefreshTokenSchema(BaseModel):
     refresh_token: str
@@ -165,3 +162,20 @@ class ResetPasswordSchema(BaseModel):
             raise ValueError("Password must be at least 6 characters")
 
         return v
+
+class ChatQuerySchema(BaseModel):
+    chat_id: str
+    message: str
+    document_id: Optional[str] = None
+    @field_validator("chat_id", "message")
+    @classmethod
+    def strip_fields(cls, v: str):
+        v = v.strip()
+        if not v:
+            raise ValueError("Field cannot be empty")
+        return v
+
+    @field_validator("document_id")
+    @classmethod
+    def strip_optional(cls, v):
+        return v.strip() if v else v
