@@ -9,6 +9,11 @@ def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = 
         Retrieve relevant document chunks for answering user questions.
         Use this when the user asks anything related to their uploaded documents.
         """
+        if not document_id:
+            return (
+                "NO_DOCUMENT_SELECTED: The user has not selected a document. "
+                "Ask the user to choose a document before retrieving information."
+            )
         docs = vector_store.similarity_search(
             query,
             k=5,
