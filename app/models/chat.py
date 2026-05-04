@@ -11,6 +11,6 @@ class Chat(Document):
 
     created_at: datetime = Field(default_factory=datetime.utcnow)
     updated_at: datetime = Field(default_factory=datetime.utcnow)
-
+    active_document_id: Optional[str] = None
     class Settings:
         name = "chats"

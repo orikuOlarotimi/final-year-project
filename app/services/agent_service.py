@@ -1,6 +1,9 @@
 from langchain_openai import ChatOpenAI
 from app.tools.retrieval_tool import create_retrieval_tool
 from langchain.agents import create_agent
+from app.services.memory_service import load_memory
+
+
 llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0)
 
 

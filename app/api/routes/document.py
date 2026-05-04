@@ -118,7 +118,6 @@ async def upload_document(
         raise e
 
     except Exception as e:
-        print(e)
         raise HTTPException(
             status_code=500,
             detail={"success": False, "message": "Upload failed"}

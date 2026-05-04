@@ -1,6 +1,8 @@
 # app/schemas/auth.py
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional
+from typing import List
+
 
 class RegisterSchema(BaseModel):
     email: EmailStr
@@ -179,3 +181,12 @@ class ChatQuerySchema(BaseModel):
     @classmethod
     def strip_optional(cls, v):
         return v.strip() if v else v
+
+class MessageResponse(BaseModel):
+    role: str
+    content: str
+    created_at: str
+
+class ChatHistoryResponse(BaseModel):
+    success: bool
+    messages: List[MessageResponse]

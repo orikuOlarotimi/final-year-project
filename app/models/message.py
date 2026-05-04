@@ -1,6 +1,7 @@
 from beanie import Document
 from pydantic import Field
 from datetime import datetime
+from typing import Optional
 
 
 class Message(Document):
@@ -11,6 +12,7 @@ class Message(Document):
     content: str
 
     created_at: datetime = Field(default_factory=datetime.utcnow)
+    document_id: Optional[str] = Field(default=None, index=True)
 
     class Settings:
         name = "messages"

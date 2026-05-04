@@ -12,41 +12,58 @@ router = APIRouter(prefix="/message", tags=["Messages"])
 
 @router.post("/message")
 async def send_message(payload: ChatQuerySchema, user_id: str = Depends(get_current_user)):
+    try:
+        # 🔹 validate chat ownership
+        chat = await Chat.get(payload.chat_id)
+        if not chat or str(chat.user_id) != str(user_id):
+            raise HTTPException(status_code=404, detail={"success": False, "message": "Chat not found"})
 
-    # 🔹 validate chat ownership
-    chat = await Chat.get(payload.chat_id)
-    if not chat or str(chat.user_id) != str(user_id):
-        raise HTTPException(status_code=404, detail={"success": False, "message": "Chat not found"})
+        clean_message = payload.message.strip()
 
-    if payload.document_id:
-        doc = await DocumentModel.get(payload.document_id)
-        if not doc or str(doc.chat_id) != str(payload.chat_id):
-            raise HTTPException(status_code=404, detail={"success": False, "message": "Document not found in this chat"})
+        if not clean_message:
+            raise HTTPException(
+                status_code=400,
+                detail={"success": False, "message": "Message cannot be empty"}
+            )
 
-    # 🔹 1. Save USER message
-    user_msg = Message(
-        chat_id=payload.chat_id,
-        user_id=user_id,
-        role="user",
-        content=payload.message.strip()
-    )
-    await user_msg.insert()
+        if payload.document_id:
+            doc = await DocumentModel.get(payload.document_id)
+            if not doc or str(doc.chat_id) != str(payload.chat_id):
+                raise HTTPException(status_code=404,
+                                    detail={"success": False, "message": "Document not found in this chat"})
 
-    # 🔹 2. Run agent
-    response = await run_agent(
-        user_id=user_id,
-        chat_id=payload.chat_id,
-        question=payload.message,
-        document_id=payload.document_id
-    )
+        # 🔹 1. Save USER message
+        user_msg = Message(
+            chat_id=payload.chat_id,
+            user_id=user_id,
+            role="user",
+            content=payload.message.strip(),
+            document_id=payload.document_id
+        )
+        await user_msg.insert()
 
-    # 🔹 3. Save ASSISTANT message
-    bot_msg = Message(
-        chat_id=payload.chat_id,
-        user_id=user_id,
-        role="assistant",
-        content=response["answer"]
-    )
-    await bot_msg.insert()
+        # 🔹 2. Run agent
+        response = await run_agent(
+            user_id=user_id,
+            chat_id=payload.chat_id,
+            question=payload.message,
+            document_id=payload.document_id
+        )
 
-    return response
+        # 🔹 3. Save ASSISTANT message
+        bot_msg = Message(
+            chat_id=payload.chat_id,
+            user_id=user_id,
+            role="assistant",
+            content=response["answer"],
+            document_id=payload.document_id
+        )
+        await bot_msg.insert()
+
+        return response
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail={"success": False, "message": "something went wrong"}
+        )
+
