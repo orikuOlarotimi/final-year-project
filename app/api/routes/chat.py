@@ -5,6 +5,8 @@ from app.models.message import Message
 from app.models.document import DocumentModel
 from app.schemas.schemas import ChatHistoryResponse
 from app.services.memory_service import build_conversation_pairs
+from app.services.chat_memory_service import ChatMemoryService
+
 
 router = APIRouter(prefix="/chats", tags=["Chats"])
 
@@ -97,24 +99,23 @@ async def get_chat_history(
         ).sort("-created_at").limit(limit).to_list()
 
         if not messages:
+            ChatMemoryService.set_memory(user_id, chat_id, document_id, [])
             return {
-                "success": True,
-                "messages": [],
-                "pairs": []
+                "success": True
             }
 
         # 🔹 2. Reverse → oldest first (important for chat order)
         messages.reverse()
 
         # 🔹 3. Format response
-        formatted = [
-            {
-                "role": msg.role,
-                "content": msg.content,
-                "created_at": msg.created_at.isoformat()
-            }
-            for msg in messages
-        ]
+        # formatted = [
+        #     {
+        #         "role": msg.role,
+        #         "content": msg.content,
+        #         "created_at": msg.created_at.isoformat()
+        #     }
+        #     for msg in messages
+        # ]
         simple_messages = [
             {
                 "role": msg.role,
@@ -122,13 +123,11 @@ async def get_chat_history(
             }
             for msg in messages
         ]
-        print(simple_messages)
-        pairs = build_conversation_pairs(simple_messages)
+        ChatMemoryService.set_memory(user_id, chat_id, document_id, simple_messages)
 
         return {
             "success": True,
-            "messages": formatted,  # UI
-            "pairs": pairs  # 🔥 memory-ready
+            "messages": "retrieved"
         }
     except HTTPException:
         raise

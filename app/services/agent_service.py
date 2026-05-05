@@ -2,7 +2,7 @@ from langchain_openai import ChatOpenAI
 from app.tools.retrieval_tool import create_retrieval_tool
 from langchain.agents import create_agent
 from app.services.memory_service import load_memory
-
+from app.services.chat_memory_service import ChatMemoryService
 
 llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0)
 
@@ -10,6 +10,9 @@ llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0)
 async def run_agent(user_id: str, chat_id: str, question: str, document_id: str | None = None):
 
     retrieval_tool = create_retrieval_tool(user_id, chat_id, document_id)
+    memory = ChatMemoryService.get_memory(user_id, chat_id, document_id)
+
+    history_messages = memory["messages"]
     prompt = (
                             """
                 You are Timi, a friendly and helpful document assistant. Your job is to help users
@@ -102,7 +105,26 @@ async def run_agent(user_id: str, chat_id: str, question: str, document_id: str 
                 - Never skip the retrieval tool because you think you already know the answer.
                 
                 ---
-                
+                ## CONVERSATION HISTORY AWARENESS
+
+                    You will be given the conversation history before the current question, if it is empty then dont 
+                    worry about it but if it is present, Use it to:
+                     - Understand what has already been discussed so 
+                    you don't repeat yourself - Notice if the user is following up on a previous question e.g. "what 
+                    about the second point?" refers to something you already retrieved 
+                    - Refine your answers based on 
+                    feedback the user gave earlier in the conversation e.g. if they said "be more concise" 
+                    previously, stay concise going forward - Detect if a question is a rephrasing of a previous one 
+                    and give a better answer rather than the exact same response 
+                    - If you're not sure of what the user 
+                    is asking of maybe because the history does not cover context then you shall tell the user to 
+                    clarify what he wants
+                    
+                    However:
+                    - NEVER answer from history alone — always still use the retrieval tool
+                    - History gives you context, the document gives you facts
+                    
+                                    
                 ## YOUR PERSONALITY
                 
                 - Friendly, warm, and encouraging.
@@ -119,8 +141,13 @@ async def run_agent(user_id: str, chat_id: str, question: str, document_id: str 
     )
     final_event = None
 
+    input_messages = [
+        *history_messages,  # 👈 MEMORY HERE
+        {"role": "user", "content": question}
+    ]
+
     async for event in agent.astream(
-            {"messages": [{"role": "user", "content": question}]},
+            {"messages": input_messages},
             stream_mode="values",
     ):
         final_event = event  # keep updating, last one is the final state
@@ -128,7 +155,8 @@ async def run_agent(user_id: str, chat_id: str, question: str, document_id: str 
 
     # Extract the last message's text content
     answer = final_event["messages"][-1].content if final_event else "No response generated."
-
+    ChatMemoryService.add_message(user_id, chat_id, document_id, "user", question)
+    ChatMemoryService.add_message(user_id, chat_id, document_id, "assistant", answer)
     return {
         "success": True,
         "answer": answer,

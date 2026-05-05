@@ -26,7 +26,7 @@ def build_conversation_pairs(messages):
                 })
                 current_user_message = None
             # else → ignore orphan assistant message
-    return build_memory_from_pairs(pairs)
+    return pairs
 
 
 def build_memory_from_pairs(pairs):
