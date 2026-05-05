@@ -108,14 +108,14 @@ async def get_chat_history(
         messages.reverse()
 
         # 🔹 3. Format response
-        # formatted = [
-        #     {
-        #         "role": msg.role,
-        #         "content": msg.content,
-        #         "created_at": msg.created_at.isoformat()
-        #     }
-        #     for msg in messages
-        # ]
+        formatted = [
+            {
+                "role": msg.role,
+                "content": msg.content,
+                "created_at": msg.created_at.isoformat()
+            }
+            for msg in messages
+        ]
         simple_messages = [
             {
                 "role": msg.role,
@@ -127,7 +127,7 @@ async def get_chat_history(
 
         return {
             "success": True,
-            "messages": "retrieved"
+            "messages": formatted
         }
     except HTTPException:
         raise
