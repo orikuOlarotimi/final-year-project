@@ -17,7 +17,6 @@ load_dotenv()
 
 async def init_db():
     client = AsyncMongoClient(os.getenv("MONGO_URI"))
-    print(os.getenv("MONGO_URI"))
 
     db = client["rag_project_db"]
 
