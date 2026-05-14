@@ -560,6 +560,7 @@ async def forgot_password(payload: ForgotPasswordSchema):
         raise e
 
     except Exception:
+        print(Exception)
         raise HTTPException(
             status_code=500,
             detail={"success": False, "message": "Failed to send OTP"}

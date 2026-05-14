@@ -61,6 +61,9 @@ class LoginSchema(BaseModel):
     @field_validator("email")
     @classmethod
     def validate_email(cls, v: EmailStr):
+        v = v.strip()
+        if not v:
+            raise ValueError("email is required")
         return v.strip().lower()
 
     @field_validator("password")
