@@ -7,7 +7,7 @@ from app.models.document import DocumentModel
 from app.models.chat import Chat
 from app.core.dependencies import get_current_user
 from app.services.document_processor import process_document
-
+from beanie import PydanticObjectId
 
 router = APIRouter(prefix="/documents", tags=["Documents"])
 
@@ -45,6 +45,20 @@ async def upload_document(
             raise HTTPException(
                 status_code=404,
                 detail={"success": False, "message": "Chat not found"}
+            )
+
+        total_documents = await DocumentModel.find(
+            DocumentModel.chat_id == chat_id,
+            DocumentModel.user_id == user_id,
+        ).count()
+
+        if total_documents >= 5:
+            raise HTTPException(
+                status_code=400,
+                detail={
+                    "success": False,
+                    "message": "Maximum of 5 documents allowed per chat",
+                },
             )
 
         # 🔹 2. Validate file presence
@@ -97,7 +111,6 @@ async def upload_document(
             status="uploaded",
             created_at=datetime.utcnow(),
             updated_at=datetime.utcnow()
-
         )
 
         await document.insert()
@@ -121,4 +134,51 @@ async def upload_document(
         raise HTTPException(
             status_code=500,
             detail={"success": False, "message": "Upload failed"}
+        )
+
+
+@router.get("/{document_id}/status")
+async def get_document_status(
+    document_id: str,
+    user_id: str = Depends(get_current_user),
+):
+    try:
+        document = await DocumentModel.find_one(
+            DocumentModel.id == PydanticObjectId(document_id),
+            DocumentModel.user_id == user_id,
+        )
+
+        if not document:
+            raise HTTPException(
+                status_code=404,
+                detail={
+                    "success": False,
+                    "message": "Document not found",
+                },
+            )
+
+        return {
+            "success": True,
+            "document": {
+                "document_id": str(document.id),
+                "filename": document.filename,
+                "status": document.status,
+                "chunk_count": document.chunk_count,
+                "error_message": document.error_message,
+                "updated_at": document.updated_at,
+            },
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as error:
+        print(f"Document status error: {error}")
+
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "success": False,
+                "message": "Failed to fetch document status",
+            },
         )

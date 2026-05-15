@@ -126,7 +126,6 @@ async def get_chat(
         user_id: str = Depends(get_current_user),
 ):
     try:
-        print(chat_id)
         # Ensure chat belongs to current user
         chat = await Chat.find_one(
             Chat.id == PydanticObjectId(chat_id),
@@ -154,6 +153,7 @@ async def get_chat(
             await DocumentModel.find(
                 DocumentModel.chat_id == chat_id,
                 DocumentModel.user_id == user_id,
+                DocumentModel.status == "processed",
             )
             .sort("-created_at")
             .to_list()
