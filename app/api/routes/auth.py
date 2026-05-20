@@ -298,6 +298,7 @@ async def refresh_token(payload: RefreshTokenSchema):
             payload_data = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
 
         except ExpiredSignatureError:
+            print(ExpiredSignatureError)
             raise HTTPException(
                 status_code=401,
                 detail={"success": False, "message": "Refresh token expired"}
@@ -356,7 +357,7 @@ async def refresh_token(payload: RefreshTokenSchema):
         # =========================
         if matched_token.expires_at < datetime.utcnow():
             await matched_token.delete()
-
+            print("reached here")
             raise HTTPException(
                 status_code=401,
                 detail={"success": False, "message": "Refresh token expired"}
