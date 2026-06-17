@@ -3,7 +3,6 @@ from app.core.vector_store import vector_store
 from app.services.chat_memory_service import ChatMemoryService
 from langchain_openai import ChatOpenAI
 
-
 def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = None):
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     @tool
@@ -59,9 +58,26 @@ def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = 
             filter={"chat_id": chat_id, "document_id": document_id}  # ✅ captured from outer scope
         )
 
+        contexts = [doc.page_content for doc in docs]
+        print("answerssss..", contexts, "the END")
+
         if not docs:
             return "No relevant information found in the uploaded documents."
 
-        return "\n\n".join([doc.page_content for doc in docs])
+        def _format_doc(doc) -> str:
+            meta = doc.metadata
+            source = meta.get("source", "")
+            filename = source.split("/")[-1] if source else meta.get("document_id", "Unknown file")
+            page = meta.get("page")
+            file_type = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
+
+            if file_type == "pdf" and page is not None:
+                label = f"[Source: {filename}, Page {page + 1}]"
+            else:
+                label = f"[Source: {filename}]"
+
+            return f"{label}\n{doc.page_content}"
+
+        return "\n\n".join([_format_doc(doc) for doc in docs])
 
     return retrieve_documents

@@ -62,6 +62,9 @@ async def run_agent(user_id: str, chat_id: str, question: str, document_id: str 
                 
                 6. NEVER make up or infer answers that are not explicitly supported by
                    the retrieved document content. If it's not in the document, say so.
+                   
+                7. if asked where the information was gotten if the retrieved chunks include a [Source: ...] label 
+                then tell the user but only the page number e.g.: "this information was gotten from page  ...."
                 
                 This applies to ALL question types including:
                 - Questions about the document
@@ -142,7 +145,7 @@ async def run_agent(user_id: str, chat_id: str, question: str, document_id: str 
     final_event = None
 
     input_messages = [
-        *history_messages,  # 👈 MEMORY HERE
+        *history_messages,  #  MEMORY HERE
         {"role": "user", "content": question}
     ]
 

@@ -1,0 +1,121 @@
+
+
+[
+  {
+    "question": "What is research according to the Research Methodology textbook?",
+    "answer": "According to the Research Methodology textbook, research is defined as a scientific and systematic search \nfor pertinent information on a specific topic. It is described as the art of scientific investigation, involving a \ncareful investigation or inquiry, especially through the search for new facts in any branch of knowledge. Research is \nalso seen as a systematized effort to gain new knowledge and a movement from the known to the unknown, essentially a \nvoyage of discovery. It involves an objective and systematic method of finding solutions to problems and the \nformulation of theories. This information was gotten from page 18 of the textbook.",
+"ground_truth": "Research is a scientific and systematic search for pertinent information on a specific topic and an art of scientific investigation.",
+    "contexts": [
+      " 'Research Methodology: An Introduction 1\n1\nResearch Methodology:\nAn Introduction\nMEANING OF RESEARCH\nResearch in common parlance refers to a search for knowledge. Once can also define research as\na scientific and systematic search for pertinent information on a specific topic. In fact, research is an\nart of scientific investigation. The Advanced Learner’s Dictionary of Current English lays down the'",
+      "'and experiment. In short, the search for knowledge through objective and systematic method of\nfinding solution to a problem is research. The systematic approach concerning generalisation and the\nformulation of a theory is also research. As such the term ‘research’ refers to the systematic method\n1 The Advanced Learner’ s Dictionary of Current English, Oxford, 1952, p. 1069.\n2 L.V. Redman and A.V .H. Mory, The Romance of Research, 1923, p.10.'",
+      "'Research Methodology: An Introduction 9\nResearch and Scientific Method\nFor a clear perception of the term research, one should know the meaning of scientific method. The\ntwo terms, research and scientific method, are closely related. Research, as we have already stated,\ncan be termed as “an inquiry into the nature of, the reasons for, and the consequences of any\nparticular set of circumstances, whether these circumstances are experimentally controlled or recorded'",
+      "'Research methodology  is a way to systematically solve the research problem. It may be\nunderstood as a science of studying how research is done scientifically. In it we study the various\nsteps that are generally adopted by a researcher in studying his research problem along with the logic\nbehind them. It is necessary for the researcher to know not only the research methods/techniques\nbut also the methodology. Researchers not only need to know how to develop certain indices or tests,'",
+      "'art of scientific investigation. The Advanced Learner’s Dictionary of Current English lays down the\nmeaning of research as “a careful investigation or inquiry specially through search for new facts in\nany branch of knowledge.”\n1 Redman and Mory define research as a “systematized effort to gain\nnew knowledge.”2 Some people consider research as a movement, a movement from the known to\nthe unknown. It is actually a voyage of discovery. We all possess the vital instinct of inquisitiveness' "
+    ],
+
+	"scores": {
+		"faithfulness" :       0.9000,
+		"context_precision":  0.8875,
+		"answer_relevancy":  0.9410,
+		"context_recall":     1.0000
+	}
+  },
+
+{
+    "question": "How do Redman and Mory define research?",
+    "answer": "Redman and Mory define research as a \"systematized effort to gain new knowledge.\" They view research as a \nmovement from the known to the unknown, essentially a voyage of discovery driven by inquisitiveness, \nwhich is considered the mother of all knowledge. This definition emphasizes research as a careful and systematic \ninvestigation aimed at acquiring new understanding. This information was gotten from page 18 of the Research \nMethodology textbook.",
+"ground_truth": "They define research as a systematized effort to gain new knowledge.",
+    "contexts": [
+      "'and experiment. In short, the search for knowledge through objective and systematic method of\nfinding solution to a problem is research. The systematic approach concerning generalisation and the\nformulation of a theory is also research. As such the term ‘research’ refers to the systematic method\n1 The Advanced Learner’ s Dictionary of Current English, Oxford, 1952, p. 1069.\n2 L.V. Redman and A.V .H. Mory, The Romance of Research, 1923, p.10.'",
+      "'art of scientific investigation. The Advanced Learner’s Dictionary of Current English lays down the\nmeaning of research as “a careful investigation or inquiry specially through search for new facts in\nany branch of knowledge.”\n1 Redman and Mory define research as a “systematized effort to gain\nnew knowledge.”2 Some people consider research as a movement, a movement from the known to\nthe unknown. It is actually a voyage of discovery. We all possess the vital instinct of inquisitiveness'",
+      "'According to Clifford Woody research comprises defining and redefining problems, formulating\nhypothesis or suggested solutions; collecting, organising and evaluating data; making deductions and\nreaching conclusions; and at last carefully testing the conclusions to determine whether they fit the\nformulating hypothesis. D. Slesinger and M. Stephenson in the Encyclopaedia of Social Sciences\ndefine research as “the manipulation of things, concepts or symbols for the purpose of generalising to'",
+      "'for, when the unknown confronts us, we wonder and our inquisitiveness makes us probe and attain\nfull and fuller understanding of the unknown. This inquisitiveness is the mother of all knowledge and\nthe method, which man employs for obtaining the knowledge of whatever the unknown, can be\ntermed as research.\nResearch is an academic activity and as such the term should be used in a technical sense.\nAccording to Clifford Woody research comprises defining and redefining problems, formulating'",
+      "'Research Methodology: An Introduction 9\nResearch and Scientific Method\nFor a clear perception of the term research, one should know the meaning of scientific method. The\ntwo terms, research and scientific method, are closely related. Research, as we have already stated,\ncan be termed as “an inquiry into the nature of, the reasons for, and the consequences of any\nparticular set of circumstances, whether these circumstances are experimentally controlled or recorded'"
+    ],
+
+	"scores":{
+		"faithfulness":       0.7143,
+		"context_precision":  0.9167,
+		"answer_relevancy":  1.0000,
+		"context_recall":     1.0000
+		}
+
+
+  },
+
+{
+    "question": "What is the primary objective of research?",
+    "answer": "The primary objective of research is to discover answers to questions through the application of \nscientific procedures. The main aim is to find out the truth which is hidden and has not been discovered yet. \nResearch objectives generally fall into these broad categories: 1. To gain familiarity with a phenomenon or achieve \nnew insights into it (exploratory or formulative research). 2. To accurately portray the characteristics of a \nparticular individual, situation, or group (descriptive research). 3. To determine the frequency with which something \noccurs or is associated with something else (diagnostic research). 4. To test a hypothesis of a causal relationship \nbetween variables (hypothesis-testing research). This information was gotten from page 19 of the Research Methodology \ntextbook.",
+    "ground_truth": "The primary objective of research is to discover answers to questions through the application of scientific procedures and uncover hidden truths.",
+    "contexts": [
+      "\"'The purpose of research is to discover answers to questions through the application of scientific\nprocedures. The main aim of research is to find out the truth which is hidden and which has not been\ndiscovered a\ns yet. Though each research study has its own specific purpose, we may think of\nresearch objectives as falling into a number of following broad groupings:\n1. To gain familiarity with a phenomenon or to achieve new insights int\no it (studies with this'",
+      "'to prove his case in favour of his plaintiff.” Discuss the statement pointing out the objectives of\nresearch.'",
+      "'1. To gain familiarity with a phenomenon or to achieve new insights into it (studies wi\nth this\nobject in view are termed as exploratory or formulative research studies);\n2. To portray accurately the characteristics of a particular individual, situation or a group\n(studies with this object in view are known as d\nescriptive research studies);\n3. To determine the frequency with which something occurs or with which it is associated'",
+      "'2 Research Methodology\nconsisting of enunciating the problem, formulating a hypothesis, collecting the f\nacts or data, analysing\nthe facts and reaching certain conclusions either in the form of solutions(s) towards the concerned\nproblem or in certain generalisations for some theoretical formulation.\nOBJECTIVES OF RESEARCH\nThe p\nurpose of research is to discover answers to questions through the application of scientific'",
+      "'3. To determine the frequency with which something occurs or with which it is associated\nwith something else (studies with this obj\nect in view are known as diagnostic research\nstudies);\n4. To test a hypothesis of a causal relationship between variables (such studies are known as\nhypothesis-testing  research studies).\nMOTIVATION IN RESEARCH\nWhat makes people to undertake research? This is a question of fundamental importance. The' \""
+    ],
+    "scores": {
+      "faithfulness": 0.8750,
+      "context_precision": 0.7500,
+      "answer_relevancy": 0.9245,
+      "context_recall": 1.0000
+    }
+  },
+{
+    "question": "What is exploratory research?",
+    "answer": "Exploratory research, also known as formulative research, aims primarily at gaining familiarity with a \nphenomenon or achieving new insights into it. Its main purpose is the development of hypotheses rather than their \ntesting. This type of research often involves deep probing into causes of things or events using small samples and \ndetailed data gathering methods. It is used to formulate a problem for more precise investigation or to develop \nworking hypotheses from an operational point of view. This information was gotten from pages 19, 21, and 52 of the \nResearch Methodology textbook.",
+    "ground_truth": "Exploratory research is conducted to gain familiarity with a phenomenon or achieve new insights into it.",
+    "contexts": [
+      "'studies usually go deep into the causes of things or events that interest us, using very small\nsamples and very deep probing data gathering devices. The research may be exploratory\nor it may be formalized. The o\nbjective of exploratory research is the development of\nhypotheses rather than their testing, whereas formalized research studies are those with\nsubstantial structure and with specific hypotheses to be tested. Historical resear\nch is that'",
+      "'because the research problem, broadly defined initially, is transformed into one with more precise\nmeaning in exploratory studies, which fact may necessitate changes in the research procedure for\ngathering releva\nnt data. Generally, the following three methods in the context of research design for\nsuch studies are talked about: (a) the survey of concerning literature; (b) the experience survey and\n(c) the analysis of ‘insight-stimulati\nng’ examples.'",
+      "'The purpose of research is to discover answers to questions through the application of scientific\nprocedures. The main aim of research is to find out the truth which is hidden and which has not been\ndiscovered\n as yet. Though each research study has its own specific purpose, we may think of\nresearch objectives as falling into a number of following broad groupings:\n1. To gain familiarity with a phenomenon or to achieve new insights i\nnto it (studies with this'",
+      "'1. To gain familiarity with a phenomenon or to achieve new insights into it (studies with this\nobject in view are termed as exploratory or formulative research studies);\n2. To portray accurately th\ne characteristics of a particular individual, situation or a group\n(studies with this object in view are known as descriptive research studies);\n3. To determine the frequency with which something occurs or with which it is ass\nociated'",
+      "'research studies, and (3) research design in case of hypothesis-testing research studies.\nWe take up each category separately.\n1. Research design in case of exploratory research studies: Exploratory research studies are\nalso termed as formulative research studies. The main purpose of such studies is that of formulating\na problem for more precise investigation or of developing the working hypotheses from an operational'"
+    ],
+    "scores": {
+      "faithfulness": 0.9091,
+      "context_precision": 1.0000,
+      "answer_relevancy": 0.8491,
+      "context_recall": 1.0000
+    }
+  },
+{
+    "question": "What is descriptive research?",
+    "answer": "Descriptive research aims to accurately portray the characteristics of a particular individual, \nsituation, or group. It includes surveys and fact-finding inquiries of different kinds, with the major purpose being \nthe description of the state of affairs as it exists at present. In descriptive research, the researcher seeks to \nmeasure items such as frequency of shopping, preferences of people, or similar data. The researcher has no control \nover the variables and can only report what has happened or what is happening. Methods used in descriptive research \ninclude survey methods, comparative, and correlational methods. This information was gotten from pages 19, 20, \nand 54 of the Research Methodology textbook.",
+    "ground_truth": "Descriptive research aims to accurately portray the characteristics of an individual, situation, or group.",
+    "contexts": [
+      "'situation are all examples of descriptive research studies. Most of the social research comes under\nthis category. From the point of view of the research design, the descriptive as well as diagnostic\nstudies sha\nre common requirements and as such we may group together these two types of research\nstudies. In descriptive as well as in diagnostic studies, the researcher must be able to define clearly,\nwhat he wants to measure and must fi\nnd adequate methods for measuring it along with a clear cut'",
+      "'frequency of shopping, preferences of people, or similar data. Ex post facto studies also\ninclude attempts by researchers to discover causes even when they cannot c\nontrol the\nvariables. The methods of research utilized in descriptive research are survey methods of\nall kinds, including comparative and correlational methods. In analytical research, on the\nother hand, the researcher has to\n use facts or information already available, and analyze\nthese to make a critical evaluation of the material.'",
+      "'Research Methodology: An Introduction 3\nthe term Ex post facto research for descriptive research studies. The mai\nn characteristic\nof this method is that the researcher has no control over the variables; he can only report\nwhat has happened or what is happening. Most ex post facto research projects are used\nfor descriptive studies in whi\nch the researcher seeks to measure such items as, for example,\nfrequency of shopping, preferences of people, or similar data. Ex post facto studies also'",
+      "'1. To gain familiarity with a phenomenon or to achieve new insights int\no it (studies with this\nobject in view are termed as exploratory or formulative research studies);\n2. To portray accurately the characteristics of a particular individual, situation or a group\n(studies with this object in vie\nw are known as descriptive research studies);\n3. To determine the frequency with which something occurs or with which it is associated'",
+      "'well motivate (or at times compel) people to perform research operations.\nTYPES OF RESEA\nRCH\nThe basic types of research are as follows:\n(i) Descriptive vs. Analytical: Descriptive research includes surveys and fact-finding enquiries\nof different kinds. The major purpose of descriptive research is description of the state of\naffairs as it exists at present. In social science and business research we quite often use'"
+    ],
+    "scores": {
+      "faithfulness": 0.9286,
+      "context_precision": 1.0000,
+      "answer_relevancy": 0.9410,
+      "context_recall": 1.0000
+    }
+  },
+
+{
+    "question": "What is diagnostic research?",
+    "answer": "Diagnostic research is a type of research study that determines the frequency with which something occurs \nor its association with something else. It focuses on whether certain variables are associated. Diagnostic research \nshares common design requirements with descriptive research, where the researcher clearly defines what to measure and \nfinds adequate methods for measurement. The research design in diagnostic studies aims to minimize bias and maximize \nthe reliability of the evidence collected, often taking the form of a survey. This information was gotten from page \n54 and 55 of your document.",
+    "ground_truth": "Diagnostic research seeks to determine the frequency with which something occurs or is associated with something else.",
+    "contexts": [
+      "'individual, or of a group, whereas diagnostic research studies determine the frequency with which\nsomething occurs or its association with something else. The studies concerning whether certain\nvariables are ass\nociated are examples of diagnostic research studies. As against this, studies concerned\nwith specific predictions, with narration of facts and characteristics concerning individual, group or'",
+      "'continue to remain flexible so th\nat many different facets of a problem may be considered as and\nwhen they arise and come to the notice of the researcher.\n2. Research design in case of descriptive and diagnostic research studies: Descriptive research\nstudies \nare those studies which are concerned with describing the characteristics of a particular\nindividual, or of a group, whereas diagnostic research studies determine the frequency with which'",
+      "'several time-periods. Research can b\ne field-setting research or laboratory research or\nsimulation research, depending upon the environment in which it is to be carried out.\nResearch can as well be understood as clinical or diagnostic research. Such research\nfol\nlow case-study methods or indepth approaches to reach the basic causal relations. Such\nstudies usually go deep into the causes of things or events that interest us, using very small'",
+      "'situation are all examples of descriptive \nresearch studies. Most of the social research comes under\nthis category. From the point of view of the research design, the descriptive as well as diagnostic\nstudies share common requirements and as such we may group together \nthese two types of research\nstudies. In descriptive as well as in diagnostic studies, the researcher must be able to define clearly,\nwhat he wants to measure and must find adequate methods for measuring it along with a clear c\nut'",
+      "'effective style.\nThus, the research design in case of descriptive/diagnostic studies is a comparative design throwing\nlight on all points narrated above and must be prepared keeping in view the objective(s) of the study\nand the resources available. However, it must ensure the minimisation of bias and maximisation of\nreliability of the evidence collected. The said design can be appropriately referred to as a survey'"
+    ],
+    "scores": {
+      "faithfulness": 0.9091,
+      "context_precision": 1.0000,
+      "answer_relevancy": 0.8770,
+      "context_recall": 1.0000
+
+    }
+  }
+
+]

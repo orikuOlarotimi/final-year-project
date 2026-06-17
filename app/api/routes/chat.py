@@ -247,7 +247,8 @@ async def get_chat_history(
         if not messages:
             ChatMemoryService.set_memory(user_id, chat_id, document_id, [])
             return {
-                "success": True
+                "success": True,
+                "messages": []
             }
 
         # 🔹 2. Reverse → oldest first (important for chat order)
