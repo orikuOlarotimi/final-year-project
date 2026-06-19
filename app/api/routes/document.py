@@ -12,7 +12,7 @@ from beanie import PydanticObjectId
 router = APIRouter(prefix="/documents", tags=["Documents"])
 
 ALLOWED_EXTENSIONS = {"pdf", "docx", "txt"}
-MAX_FILE_SIZE = 5 * 1024 * 1024  # 5MB
+MAX_FILE_SIZE = 12 * 1024 * 1024  # 5MB
 
 
 @router.post("/upload")
