@@ -3,8 +3,10 @@ from app.core.vector_store import vector_store
 from app.services.chat_memory_service import ChatMemoryService
 from langchain_openai import ChatOpenAI
 
+
 def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = None):
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+
     @tool
     def retrieve_documents(query: str) -> str:
         """
@@ -16,6 +18,7 @@ def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = 
                 "NO_DOCUMENT_SELECTED: The user has not selected a document. "
                 "Ask the user to choose a document before retrieving information."
             )
+
         memory = ChatMemoryService.get_memory(user_id, chat_id, document_id)
         history = memory.get("messages", [])[-4:]  # last 4–8 turns
 
@@ -23,6 +26,7 @@ def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = 
             f"{m['role'].capitalize()}: {m['content']}"
             for m in history
         )
+
         QUERY_REWRITE_PROMPT = """
                 You are a query rewriting system for document retrieval.
 
@@ -42,8 +46,10 @@ def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = 
 
                 Chat history:
                 {history}
+
                 Rewritten query:
                 """
+
         rewritten_query = llm.invoke(
             QUERY_REWRITE_PROMPT.format(
                 question=query,
@@ -69,12 +75,24 @@ def create_retrieval_tool(user_id: str, chat_id: str, document_id: str | None = 
             source = meta.get("source", "")
             filename = source.split("/")[-1] if source else meta.get("document_id", "Unknown file")
             page = meta.get("page")
+            modality = meta.get("modality", "text")
             file_type = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
 
+            # Human-readable type label so the LLM can immediately see what
+            # kind of content this chunk is, without having to infer it from
+            # the page_content text alone.
+            type_labels = {
+                "text":  "Text",
+                "ocr":   "Text (OCR)",
+                "image": "Figure",
+                "table": "Table",
+            }
+            type_label = type_labels.get(modality, modality.capitalize())
+
             if file_type == "pdf" and page is not None:
-                label = f"[Source: {filename}, Page {page + 1}]"
+                label = f"[Source: {filename}, Page {page + 1}, Type: {type_label}]"
             else:
-                label = f"[Source: {filename}]"
+                label = f"[Source: {filename}, Type: {type_label}]"
 
             return f"{label}\n{doc.page_content}"
 
