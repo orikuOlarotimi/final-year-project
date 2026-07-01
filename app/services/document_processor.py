@@ -649,37 +649,49 @@ async def _build_all_chunks(extracted: dict, file_name: str) -> List[Document]:
 
     return chunks
 
-
 # ---------------------------------------------------------------------------
 # Embed + upsert (unchanged from original, works for all modalities)
 # ---------------------------------------------------------------------------
-
 
 @_with_retry()
 async def _embed_and_upsert(chunks: List[Document], namespace: str) -> None:
     total = len(chunks)
     loop  = asyncio.get_event_loop()
 
-    logger.info("Upserting %d chunk(s)...", total)
+    batches = [
+        chunks[start : start + EMBED_BATCH_SIZE]
+        for start in range(0, total, EMBED_BATCH_SIZE)
+    ]
 
-    for start in range(0, total, EMBED_BATCH_SIZE):
-        batch = chunks[start : start + EMBED_BATCH_SIZE]
+    logger.info(
+        "Embedding and upserting %d chunk(s) across %d batch(es) "
+        "(max 8 concurrent)...",
+        total, len(batches),
+    )
 
-        await loop.run_in_executor(
-            None,
-            lambda b=batch: vector_store.add_documents(b, namespace=namespace),
-        )
+    semaphore = asyncio.Semaphore(8)
 
-        logger.info(
-            "  Upserted %d-%d / %d",
-            start + 1, min(start + EMBED_BATCH_SIZE, total), total,
-        )
+    async def _upsert_batch(batch: List[Document], idx: int):
+        async with semaphore:
+            await loop.run_in_executor(
+                None,
+                lambda b=batch: vector_store.add_documents(b, namespace=namespace),
+            )
+            logger.info(
+                "  Batch %d/%d done (%d chunk(s))",
+                idx + 1, len(batches), len(batch),
+            )
 
+    await asyncio.gather(*[_upsert_batch(b, i) for i, b in enumerate(batches)])
+
+    logger.info(
+        "Upsert complete: %d chunk(s) across %d batch(es).",
+        total, len(batches),
+    )
 
 # ---------------------------------------------------------------------------
 # Main entry point
 # ---------------------------------------------------------------------------
-
 
 async def process_document(document_id: str) -> None:
     """

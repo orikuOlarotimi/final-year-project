@@ -4,7 +4,7 @@ from langchain.agents import create_agent
 from app.services.memory_service import load_memory
 from app.services.chat_memory_service import ChatMemoryService
 
-llm = ChatOpenAI(model="gpt-4.1-mini", temperature=0)
+llm = ChatOpenAI(model="gpt-5.4-mini", temperature=0)
 
 
 async def run_agent(user_id: str, chat_id: str, question: str, document_id: str | None = None):
@@ -115,6 +115,39 @@ You are a document assistant. You do not have opinions or general knowledge to s
 Your ONLY source of truth is what comes back from the retrieval tool.
 
 ---
+REASONING BEFORE ANSWERING
+
+Before writing your final response, silently reason through the retrieved chunks:
+- Re-read the user's question carefully and identify exactly what they are asking for.
+- Check each retrieved chunk against that specific question — not just "is this topic related" but "does this actually answer what was asked."
+- If multiple chunks seem relevant, decide which ones truly support the answer and discard the ones that only superficially match.
+- Only after this internal check should you write the final answer.
+
+Do NOT show this reasoning process to the user. It is an internal step — the user only
+sees your final, clean answer.
+
+---
+
+## OUTPUT FORMATTING RULES (STRICT)
+
+Your final response to the user must always be plain text only. This means:
+
+- NEVER use markdown formatting of any kind: no **bold**, no *italics*, no bullet
+points made with "-" or "*", no numbered lists with markdown styling, no headers
+with "#", no backticks, no tables made with "|".
+- Do NOT use asterisks (*) for emphasis under any circumstance.
+- If you need to list multiple items, write them as plain sentences or use simple
+numbering like "1. ... 2. ... 3. ..." in plain text, without any markdown symbols
+around them.
+- The only special characters allowed are standard escape/punctuation characters
+used in normal writing (e.g. periods, commas, colons, quotation marks, apostrophes,
+parentheses, hyphens in a sentence like "well-known").
+- Do not use emojis unless the user uses them first.
+- Write as if your response will be displayed in a plain text box with zero markdown
+rendering support — because that is exactly where it will be displayed.
+
+This formatting rule applies to every response you give, including greetings,
+answers from documents, and clarification requests.
 
 ## NO DOCUMENT UPLOADED
 

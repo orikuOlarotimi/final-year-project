@@ -17,38 +17,34 @@ load_dotenv()
 # -----------------------------
 OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
-question = "What are the main steps involved in the research process according to the Research Methodology textbook"
+question = "types of hypertension"
 
-answer = """The main steps involved in the research process according to the Research Methodology textbook are: 1. 
-Formulating the research problem 2. Extensive literature survey 3. Developing the hypothesis 4. Preparing the 
-research design 5. Determining sample design 6. Collecting the data 7. Execution of the project 8. Analysis of data 
-9. Hypothesis testing 10. Generalisations and interpretation 11. Preparation of the report or presentation of the 
-results (formal write-up of conclusions reached) These steps provide a useful procedural guideline for effectively 
-carrying out research, with an emphasis on anticipating the requirements of subsequent steps throughout the process. 
-Additionally, Fig. 1.1 on page 28 illustrates this research process as a flowchart showing the sequential steps and 
-feedback loops, highlighting the iterative and controlled nature of research."""
+answer = """The document lists these types of hypertension: - **Essential (primary) hypertension**: over 90% of 
+cases; no identifiable cause is found. - **Secondary hypertension**: less than 10% of cases; caused by an 
+identifiable underlying condition. Additionally, it says secondary hypertension can be caused by things like renal 
+disease, renovascular problems, vascular causes, hormone/steroid intake, adrenal disorders, other endocrine 
+disorders, neurogenic causes, prohypertensive substances, pregnancy, hypercalcemia, and sleep apnea. this information 
+was gotten from page 6"""
 
-ground_truth = """The main steps in the research process are: formulating 
-the research problem, extensive literature survey, developing the hypothesis, 
-preparing the research design, determining sample design, collecting the data, 
-execution of the project, analysis of data, hypothesis testing, 
-generalisations and interpretation, and preparation of the report."""
+ground_truth = """ Essential (primary) hypertension:  
+That represents over 90% of the cases. It is diagnosed in the absence of an identifiable cause. 
+However, many risk factors increase the likelihood of its occurrence (Table 1): and Secondary hypertension: 
+That represents less than 10% of all cases. It is defined as hypertension resulting from an 
+underlying identifiable cause (Table 2).  """
 
-contexts = ["""constantly anticipating at each step in the research process the requirements of the subsequent\nsteps. However, the following order concerning various steps provides a useful procedural guideline\nregarding the r
-esearch process: (1) formulating the research problem; (2) extensive literature survey;\n(3) developing the hypothesis; (4) preparing the research design; (5) determining sample design;\n(6) collecting the data; (7) execution of
- the project; (8) analysis of data; (9) hypothesis testing;', 'Before embarking on the details of research methodology and techniques, it seems appropriate to\npresent a brief overview of the research process. Research process c
-onsists of series of actions or\nsteps necessary to effectively carry out research and the desired sequencing of these steps. The\nchart shown in Figure 1.1 well illustrates a research process.\n10 Carlos L. Lastrucci, The Scien
-tific Approach: Basic Principles of the Scientific Method, p. 7.', "[Figure on page 28 — Fig. 1.1]: A horizontal flowchart titled 'RESEARCH PROCESS IN FLOW CHART' showing the sequential steps in a research process within a large
- light blue rectangular background. The flowchart consists of seven main rectangular nodes connected with rightward arrows, each representing a research stage labeled with Roman numerals I through VII below each node. The steps 
-are as follows: I - 'Define research problem'; from this step, two downward dashed arrows lead respectively to 'Review concepts and theories' and 'Review previous research finding' inside two smaller dashed rectangles arranged v
-ertically on the right side. Both review steps have rightward arrows that converge and lead to step III - 'Formulate hypotheses'. Step III connects rightward to IV - 'Design research (including sample design)', which then procee
-ds rightward to V - 'Collect data (Execution)'. Next, an arrow leads rightward to VI - 'Analyse data (Test hypotheses if any)', followed by step VII - 'Interpret and report'. Two feedback loops marked with blue circles containin
-g 'F' connect from step VI back to V and from V back to IV respectively. Two feed forward loops marked with blue circles containing 'FF' proceed from the top middle and right top corner of the large rectangle back to steps IV an
-d the main flow start respectively, showing the flow feedback mechanisms. At bottom right below the flowchart, a legend explains 'F' is feedback, helping in controlling the sub-system, and 'FF' is feed forward, serving the vital
- function of providing criteria for evaluation. The figure effectively illustrates the iterative and controlled nature of the research process.", '(10) generalisations and interpretation, and (11) preparation of the report or pr
-esentation of the results,\ni.e., formal write-up of conclusions reached.\nA brief description of the above stated steps will be helpful.\n1. Formulating the research problem: There are two types of research problems, viz., thos
-e\nwhich relate to states of nature and those which relate to relationships between variables. At the', 'government and other agencies doing this job in our country. Researcher also faces the\nproblem on account of the fact that
- the published data vary quite significantly because of\ndifferences in coverage by the concerning agencies.\n10. There may, at times, take place the problem of conceptualization and also problems\nrelating to the process of data collection and related things.\nQuestions\n1. Briefly describe the different steps involved in a research process."""]
+contexts = ["""  'hypertension in adults aged 18 years or older is: \n \nSystolic blood pressure ≥140 mmHg and/or diastolic blood pressure ≥90 mmHg on the \naverage of two or more readings taken at each of two or more visits after 
+initial screening. \n \nTypes of hypertension: \n \nEssential (primary) hypertension:  \nThat represents over 90% of the cases. It is diagnosed in the absence of an identifiable cause. \nHowever, many risk factors increase the l
+ikelihood of its occurrence (Table 1): \n \nTable 1', '6 \n \nSedentary life style \nStress \nFamily history of hypertension, age, gender and race (non modifiable risk) \n \n \nSecondary hypertension: \nThat represents less than
+ 10% of all cases. It is defined as hypertension resulting from an \nunderlying identifiable cause (Table 2). \n \nTable 2 \nIdentifiable causes of secondary hypertension \n \nSource or category  of cause \nPossible causes \n \n
+Renal diseases \nRenal parenchymal disease \nPolycystic kidney \nUrinary tract obstruction \nRennin-producing tumor', '7 \n \nThe diagnosis is made clinically by a high BP and rapidly progressive end organ damage \nsuch as retin
+opathy (grade 3 or 4), renal dysfunction (especially proteinuria) and/or \nhypertensive encephalopathy.  If left untreated, death will occur within few months. \n \n \nClassification of hypertension: \n \nTable 3  \nClassificati
+on of blood pressure for adults* \n Blood pressure class \nSystolic blood \npressure (mmHg) \nDiastolic blood \npressure (mmHg) \nNormal \n<120 \nAnd <80 \nPrehypertension', '[Table on page 6]:\n| Source or category of cause | P
+ossible causes |\n| --- | --- |\n| Renal diseases | Renal parenchymal disease\nPolycystic kidney\nUrinary tract obstruction\nRennin-producing tumor\nLiddle syndrome |\n| Renovascular hypertension | Renal artery stenosis\nConnect
+ive tissue disease\nGlomerulonephritis |\n| Vascular | Coarctation of aorta\nVasculitis/polycythemia\nCollagen vascular disease |\n| Hormone and steroid intake | Oral contraceptives\nEstrogen replacement therapy\nOral and Depot 
+contraceptives,\nSteroid medication |\n| Adrenal | Primary aldosteronism\nCushing syndrome\nPheochromocytoma\nCongenital adrenal hyperplasia |\n| Other endocrine disorders | Hyperthyroidism and hypothyroidism\nHyperparathyroidis
+m\nAcromegaly |\n| Neurogenic | Brain tumor\nLesions of brainstem or hypothalamus\nRaised intracranial pressure |\n| Prohypertensive substances | Adrenergic medication, nasal\ndecongestants\nNonsteroidal anti-inflammatory drugs\
+nAnti-depressants (tricyclic, MAOI),\nAlcohol, Cyclosporine and Tacrolimus,\nerythropoietin |\n| Other | Pregnancy\nHypercalcemia\nSleep Apnea |', 'ARB, BB, CCB) as \nneeded \nStage 2 \nHypertension \n≥160 \nor 100 \nYes \nTwo-d
+rug \ncombination for \nmost (usually \nthiazide-type diuretic \nand ACEI or ARB or \nBB or CCB) \n \n* Compelling indication: target organ damage or associated clinical condition or risk factors \n \nLifestyle Modifications: \n \nThe adoption of healthy lifestyles by all persons is critical for the prevention of hypertension \nand is an indispensable part of the management of those with hypertension (Annex 3).'"""]
 
 # -----------------------------
 # 2. EVALUATION LOGIC
